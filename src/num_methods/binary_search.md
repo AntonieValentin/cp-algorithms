@@ -99,6 +99,18 @@ while (r - l > 1) {
     }
 }
 ```
+### Search on discrete convex function
+
+Another useful use case of binary search is finding the (global) minimum of a discrete convex (or concave) function.
+
+<center>
+<img src="https://i.postimg.cc/15DTdyxH/desmos-graph.png" width="300px">
+<br>
+<i>An example of a convex function</i>
+<br>
+</center>
+
+Let $f : \{x_1, \dots, x_n\} \to \mathbb{R}$ be that function. We define $(x_{\min}, f(x_{\min}))$ to be the global minimum of the function, "the left part" to be all points $(x_i, f(x_i))$, $x_i \le x_{\min}$, and "the right part" to be all points $(x_i, f(x_i))$, $x_i > x_{\min}$.
 
 ### Binary search on the answer
 
@@ -225,6 +237,7 @@ vector<int> parallel_binary_search(vector<int>& A, vector<int>& X) {
 - [LeetCode - Find Peak Element](https://leetcode.com/problems/find-peak-element/)
 - [LeetCode - Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 - [LeetCode - Find Right Interval](https://leetcode.com/problems/find-right-interval/)
+- [LeetCode - Find in Mountain Array](https://leetcode.com/problems/find-in-mountain-array/description/)
 - [Codeforces - Interesting Drink](https://codeforces.com/problemset/problem/706/B/)
 - [Codeforces - Magic Powder - 1](https://codeforces.com/problemset/problem/670/D1)
 - [Codeforces - Another Problem on Strings](https://codeforces.com/problemset/problem/165/C)
