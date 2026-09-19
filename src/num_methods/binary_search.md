@@ -99,18 +99,44 @@ while (r - l > 1) {
     }
 }
 ```
-### Search on discrete convex function
+### Search on a discrete strictly convex function
 
-Another useful use case of binary search is finding the (global) minimum of a discrete convex (or concave) function.
+Another useful use case of binary search is finding the (global) minimum of a discrete strictly convex (or concave) function.
 
 <center>
 <img src="https://i.postimg.cc/15DTdyxH/desmos-graph.png" width="300px">
 <br>
-<i>An example of a convex function</i>
+<i>An example of a discrete strictly convex function</i>
 <br>
 </center>
 
-Let $f : \{x_1, \dots, x_n\} \to \mathbb{R}$ be that function. We define $(x_{\min}, f(x_{\min}))$ to be the global minimum of the function, "the left part" to be all points $(x_i, f(x_i))$, $x_i \le x_{\min}$, and "the right part" to be all points $(x_i, f(x_i))$, $x_i > x_{\min}$.
+Let $f : \{x_1, \dots, x_n\} \to \mathbb{R}$ be that function. We define $(x_{\min}, f(x_{\min}))$ to be the global minimum of the function, "the left part" to be all points $(x_i, f(x_i))$, $x_i < x_{\min}$, and "the right part" to be all points $(x_i, f(x_i))$, $x_i \ge x_{\min}$.
+
+We can observe that, on the left part, pairs of consecutive points $((x_i, f(x_i)), (x_{i+1}, f(x_{i+1})))$ have $f(x_i) - f(x_{i+1}) > 0$ and, on the right part, pairs of consecutive points $((x_i, f(x_i)), (x_{i+1}, f(x_{i+1})))$ have $f(x_i) - f(x_{i+1}) < 0$. Thus, we can make the following transformation $f \to g$, $g \colon \{x_1, \dots, x_{n-1}\} \to \{-1, 1\}$, such that $g(x_i) = \text{sgn}(f(x_i) - f(x_{i+1}))$. $g$ is monotonously decreasing, and that means we can binary search to find the global minimum. Complexity $\mathcal{O}(\log n)$.
+
+Conceptual code
+```cpp
+int binary_search_convex(const vector<int>& v) {
+    if (v.empty()) 
+        return -1;
+    if (v.size() == 1) 
+        return 0;
+    int l = 0;
+    int r = v.size() - 2;
+    int index = v.size() - 1;
+    while(l <= r){
+        int m = (l + r) / 2;
+        if (v[m] - v[m + 1] > 0)
+            l = m + 1;
+        else {
+            index = m;
+            r = m - 1;
+        }
+    }
+    return index;
+}
+
+```
 
 ### Binary search on the answer
 
